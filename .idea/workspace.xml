@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="92c4111e-41a2-4a67-bea7-2d448c392ff6" name="Default Changelist" comment="" />
+    <list default="true" id="92c4111e-41a2-4a67-bea7-2d448c392ff6" name="Default Changelist" comment="dev: &#10;- added messanger/amqp&#10;- added GrabberCommand.php&#10;- added Grabber.php/GrabberHandler - for handle messages&#10;- added FileLoader">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/images.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Command/GrabberCommand.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/FileLoader.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Message/Grabber.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MessageHandler/GrabberHandler.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/plan_classifier.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/plan_classifier.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/APIGateway.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,6 +41,9 @@
     </option>
     <expand />
     <select />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -81,9 +99,11 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
       <path value="$PROJECT_DIR$/vendor/doctrine/common" />
       <path value="$PROJECT_DIR$/vendor/doctrine/orm" />
+      <path value="$PROJECT_DIR$/vendor/symfony/messenger" />
     </include_path>
   </component>
   <component name="ProjectId" id="1WOBqgCtCeH9fwq3xUpeI5lG8Xn" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -92,11 +112,17 @@
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/data" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/data" />
+      <recent name="$PROJECT_DIR$/src/data" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
@@ -109,11 +135,6 @@
               <path>
                 <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
                 <item name="root:MySQL - plan@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              </path>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="root:MySQL - plan@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="com.intellij.database.console.session.MessageBusSession@29f23c83" type="9fbbdea:ServiceModel$ServiceNode" />
               </path>
             </expand>
             <select />
@@ -132,21 +153,41 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1579010952363</updated>
-      <workItem from="1579010953600" duration="542000" />
+      <workItem from="1579010953600" duration="6112000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="dev: &#10;- added messanger/amqp&#10;- added GrabberCommand.php&#10;- added Grabber.php/GrabberHandler - for handle messages&#10;- added FileLoader" />
+    <option name="LAST_COMMIT_MESSAGE" value="dev: &#10;- added messanger/amqp&#10;- added GrabberCommand.php&#10;- added Grabber.php/GrabberHandler - for handle messages&#10;- added FileLoader" />
+  </component>
   <component name="WindowStateProjectService">
     <state x="320" y="115" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1579011411374">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="320" y="115" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900" timestamp="1579011411374" />
-    <state x="419" y="273" key="NewPhpClassDialog" timestamp="1579011442167">
+    <state x="314" y="51" key="CommitChangelistDialog2" timestamp="1579020081461">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="419" y="273" key="NewPhpClassDialog/0.0.1440.900@0.0.1440.900" timestamp="1579011442167" />
+    <state x="314" y="51" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1579020081461" />
+    <state x="419" y="273" key="NewPhpClassDialog" timestamp="1579017661977">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="419" y="273" key="NewPhpClassDialog/0.0.1440.900@0.0.1440.900" timestamp="1579017661977" />
+    <state x="541" y="380" key="NewPhpFileDialog" timestamp="1579017539967">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="541" y="380" key="NewPhpFileDialog/0.0.1440.900@0.0.1440.900" timestamp="1579017539967" />
+    <state x="331" y="68" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1579017587519">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="331" y="68" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1440.900@0.0.1440.900" timestamp="1579017587519" />
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1579012277619">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1579012277619" />
   </component>
 </project>
