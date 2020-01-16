@@ -1,10 +1,11 @@
 <?php
+
 namespace App;
 
 class FileLoader
 {
-    /** @var string  */
-    const FILE_PATH = "data/image_urls.csv";
+    /** @var string */
+    const FILE_PATH = "data/images.csv";
 
     /**
      * @param $chunkSize
@@ -20,7 +21,6 @@ class FileLoader
                 call_user_func_array($callback, [fread($handle, $chunkSize), &$handle, $i]);
                 $i++;
             }
-
             fclose($handle);
         } catch (\Exception $e) {
             trigger_error("file_get_contents_chunked::" . $e->getMessage(), E_USER_NOTICE);

@@ -3,24 +3,36 @@
 namespace App\Command;
 
 use App\FileLoader;
-use App\Message\Grabber;
+use Doctrine\ORM\EntityManagerInterface;
+use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Messenger\MessageBusInterface;
 
 class GrabberCommand extends Command
 {
+    const CHUNK_SIZE = 50000;
+
     /** @var string */
     protected static $defaultName = 'app:grab-images';
 
-    /** @var MessageBusInterface */
-    private $messageBus;
+    /** @var EntityManagerInterface */
+    private $em;
 
-    public function __construct(MessageBusInterface $bus)
+    /** @var ContainerInterface */
+    private $container;
+
+    /**
+     * GrabberCommand constructor.
+     * @param EntityManagerInterface $em
+     * @param ContainerInterface $container
+     */
+    public function __construct(EntityManagerInterface $em, ContainerInterface $container)
     {
         parent::__construct();
-        $this->messageBus = $bus;
+
+        $this->em = $em;
+        $this->container = $container;
     }
 
     /**
@@ -28,18 +40,16 @@ class GrabberCommand extends Command
      * @param OutputInterface $output
      * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $before = round(microtime(true) * 1000);
-        $i = 0;
         $success = FileLoader::fileGetContentsChunked(
-            50000,
-            function ($chunk, &$handle, $iteration) {
+            self::CHUNK_SIZE,
+            function ($chunk, $iteration) {
                 $chunkArr = explode("\n", $chunk);
                 if ($iteration == 0) {
                     array_shift($chunkArr);
                 }
-                $this->messageBus->dispatch(new Grabber($chunkArr[0]));
+                $this->container->get('old_sound_rabbit_mq.image_data_saving_producer')->publish(serialize($chunkArr));
             }
         );
 
@@ -47,10 +57,8 @@ class GrabberCommand extends Command
             dd('failed');
         }
 
-        $after = round(microtime(true) * 1000);
-
-        dd($i, $after - $before);
         var_dump('success loaded 1M pictures');
+
         return 0;
     }
 }
