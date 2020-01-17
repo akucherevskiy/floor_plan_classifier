@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Entity\Attribute;
 use App\FileLoader;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
@@ -55,6 +56,12 @@ class GrabberCommand extends Command
 
         if (!$success) {
             dd('failed');
+        }
+
+        $countAttr = $this->em->getRepository(Attribute::class)->findOneBy(['attr' => 'count']);
+        if ($countAttr) {
+            $this->em->remove($countAttr);
+            $this->em->flush();
         }
 
         var_dump('success loaded 1M pictures');
