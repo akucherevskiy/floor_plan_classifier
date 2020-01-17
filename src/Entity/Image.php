@@ -25,9 +25,9 @@ class Image
 
     /**
      * @var bool
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean", options={"default" : 0})
      */
-    private $isFloorPlan;
+    private $isFloorPlan = 0;
 
     /**
      * @return int

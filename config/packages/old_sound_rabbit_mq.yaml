@@ -21,9 +21,22 @@ old_sound_rabbit_mq:
             exchange_options:
                 name: images
                 type: direct
+                
+        image_classifier:
+            connection: default
+            exchange_options:
+                name: images_classifier
+                type: direct
+
     consumers:
         image_data_saving:
             connection:       default
             exchange_options: {name: 'images', type: direct}
             queue_options:    {name: 'images'}
             callback:         saver_service
+
+        image_classifier:
+            connection:       default
+            exchange_options: {name: 'images_classifier', type: direct}
+            queue_options:    {name: 'images_classifier'}
+            callback:         classifier_service
