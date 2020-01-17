@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<table style="width:100%">
+    <tr>
+        <th>ID</th>
+        <th>LunId</th>
+        <th>URL</th>
+        <th>Is_Floor_Plan</th>
+    </tr>
+    {% for img in list %}
+        <tr>
+            <th>{{ img['id'] }}</th>
+            <th>{{ img['lunId'] }}</th>
+            <th><img src="https://storage.googleapis.com/lun-test/layouts/{{ img['lunId'] }}.jpg" height="240"
+                     width="240"></th>
+            <th>{{ img['isFloorPlan'] ? 'Yes' : 'No' }}</th>
+        </tr>
+    {% endfor %}
+    <a href="{{ url('images', {'page': 1}) }}">| <<<< First page -- |</a>
+    {% if (false != next_page) %}
+        <a href="{{ url('images', {'page': next_page}) }}">| Next Page -> |</a>
+    {% endif %}
+    {% if (false != previous_page) %}
+        <a href="{{ url('images', {'page': previous_page}) }}">| <- Previous page |</a>
+    {% endif %}
+    <a href="{{ url('images', {'page': last_page}) }}">| Last page >>>> | </a>
+
+    <a href="{{ url('classify') }}"> TRY IT OUT! </a>
+</table>
+</html>
