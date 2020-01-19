@@ -39,10 +39,13 @@ class Attribute
 
     /**
      * @param int $id
+     * @return Attribute
      */
-    public function setId(int $id): void
+    public function setId(int $id): self
     {
         $this->id = $id;
+
+        return $this;
     }
 
     /**
@@ -55,10 +58,13 @@ class Attribute
 
     /**
      * @param string $attr
+     * @return Attribute
      */
-    public function setAttr(string $attr): void
+    public function setAttr(string $attr): self
     {
         $this->attr = $attr;
+
+        return $this;
     }
 
     /**
@@ -71,9 +77,12 @@ class Attribute
 
     /**
      * @param string $value
+     * @return Attribute
      */
-    public function setValue(string $value): void
+    public function setValue(string $value): self
     {
         $this->value = $value;
+
+        return $this;
     }
 }

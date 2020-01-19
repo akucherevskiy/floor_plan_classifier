@@ -4,11 +4,17 @@ namespace App\Controller;
 
 use App\Entity\Attribute;
 use App\Entity\Image;
+use App\Repository\ImageRepository;
+use App\Services\Classifier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpClient\CurlHttpClient;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\HttpClient\Exception\{ClientExceptionInterface as ClientException,
+    RedirectionExceptionInterface as RedirectionException,
+    ServerExceptionInterface as ServerException,
+    TransportExceptionInterface as TransportException
+};
 
 class ApiController extends AbstractController
 {
@@ -19,30 +25,30 @@ class ApiController extends AbstractController
      */
     public function listAction(Request $request)
     {
-        $count = $this->getDoctrine()->getRepository(Attribute::class)->findBy(['attr' => 'count']);
+        $em = $this->getDoctrine()->getManager();
+        /** @var ImageRepository $imageRepo */
+        $imageRepo = $em->getRepository(Image::class);
+        $count = $em->getRepository(Attribute::class)->findBy(['attr' => 'count']);
         if (!$count) {
-            $allCount = $this->getDoctrine()->getRepository(Image::class)->count([]);
-            $count = new Attribute();
-            $count->setAttr('count');
-            $count->setValue($allCount);
+            /** @var int $count */
+            $count = $imageRepo->count([]);
+            $em->persist((new Attribute())->setAttr('count')->setValue($count));
+            $em->flush();
         } else {
-            $allCount = $count;
+            $count = $count[0]->getValue();
         }
-
-        $list = $this->getDoctrine()->getRepository(Image::class)->getPaginatedList();
-        $lastPage = round($allCount / 10);
+        $lastPage = round($count / ImageRepository::PER_PAGE);
         $currentPage = $request->query->get('page');
-        $nextPage = $request->query->get('page') < $lastPage ? $currentPage + 1 : false;
-        $previousPage = $request->query->get('page') > 0 ? $currentPage - 1 : false;
 
         return $this->render(
-            'base.html.twig',
+            'list.html.twig',
             [
-                'list' => $list,
-                'next_page' => $nextPage,
-                'previous_page' => $previousPage,
+                'list' => $imageRepo->getPaginatedList($currentPage, $request->query->get('per_page')),
+                'next_page' => $currentPage < $lastPage ? $currentPage + 1 : false,
+                'previous_page' => $currentPage > 0 ? $currentPage - 1 : false,
                 'last_page' => $lastPage,
-                'count' => $allCount
+                'count' => $count,
+                'base_path' => $_ENV['BASE_PATH']
             ]
         );
     }
@@ -51,31 +57,18 @@ class ApiController extends AbstractController
      * @Route("/classify_image", name="classify")
      * @param Request $request
      * @return Response
-     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     * @throws ClientException|RedirectionException|ServerException|TransportException
      */
     public function classifyAction(Request $request)
     {
-        $responseArr = [];
-        $responseArr['render_answer'] = false;
         if ($image = $request->files->get('image')) {
-            $client = new CurlHttpClient();
-            $response = $client->request(
-                'POST',
-                'http://127.0.0.1:5000/classify',
-                [
-                    'body' => [
-                        'image' => base64_encode((file_get_contents($image)))
-                    ]
-                ]
-            );
-            $classifierResponse = json_decode($response->getContent(), true);
-            $responseArr['render_answer'] = true;
-            $responseArr['is_floor_plan'] = $classifierResponse['data'][0]['is_plan'];
+            $classifierResult = Classifier::classify(file_get_contents($image));
+            if (!$classifierResult['success']) {
+                return $this->json($classifierResult['data']['error'], Response::HTTP_BAD_REQUEST);
+            }
+            $data['is_floor_plan'] = $classifierResult['data']['is_plan'];
         }
 
-        return $this->render('classifier.html.twig', $responseArr);
+        return $this->render('classifier.html.twig', $data ?? []);
     }
 }

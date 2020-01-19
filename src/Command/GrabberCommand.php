@@ -3,7 +3,7 @@
 namespace App\Command;
 
 use App\Entity\Attribute;
-use App\FileLoader;
+use App\Services\FileLoader;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -63,8 +63,6 @@ class GrabberCommand extends Command
             $this->em->remove($countAttr);
             $this->em->flush();
         }
-
-        var_dump('success loaded 1M pictures');
 
         return 0;
     }

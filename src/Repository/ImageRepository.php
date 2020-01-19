@@ -5,8 +5,7 @@ namespace App\Repository;
 use App\Entity\Image;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\{Request, RequestStack};
 
 class ImageRepository extends ServiceEntityRepository
 {
@@ -14,9 +13,7 @@ class ImageRepository extends ServiceEntityRepository
     const MAX_PER_PAGE = 30;
     const PER_PAGE = 10;
 
-    /**
-     * @var Request
-     */
+    /** @var Request */
     private $request;
 
     /**
@@ -33,11 +30,8 @@ class ImageRepository extends ServiceEntityRepository
         parent::__construct($registry, Image::class);
     }
 
-    public function getPaginatedList()
+    public function getPaginatedList($page, $perPage )
     {
-        $page = $this->request->query->get('page');
-        $perPage = $this->request->query->get('per_page');
-
         $page = (null == $page || $page < 0) ? self::START_PAGE : $page;
         $maxPerPage = self::MAX_PER_PAGE;
         if (null == $page || $perPage <= 0) {

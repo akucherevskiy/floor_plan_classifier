@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html>
-<a href="{{ url('images', {'page': 1}) }}"> Bacl to List </a>
-{% if render_answer %}
-    Image is {{ is_floor_plan ? '' : 'Not' }} Plan!
-{% endif %}
-
-<form action="{{ path('classify') }}" method="post" enctype="multipart/form-data">
-    <input type="file" name="image" id="image">
-    <input type="submit" value="TRY!" name="submit">
-</form>
+    <a href="{{ url('images', {'page': 1}) }}"> <-- Back to List </a>
+    <br>
+    <br>
+    {% if is_floor_plan is defined %}
+        It is {{ is_floor_plan ? '' : 'Not' }} a Plan!
+    {% endif %}
+    <br>
+    <br>
+    <form action="{{ path('classify') }}" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" id="image">
+        <input type="submit" value="TRY!" name="submit">
+    </form>
 </html>

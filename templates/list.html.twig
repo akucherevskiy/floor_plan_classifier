@@ -11,20 +11,19 @@
         <tr>
             <th>{{ img['id'] }}</th>
             <th>{{ img['lunId'] }}</th>
-            <th><img src="https://storage.googleapis.com/lun-test/layouts/{{ img['lunId'] }}.jpg" height="240"
+            <th><img src="{{ base_path }}{{ img['lunId'] }}.jpg" height="240"
                      width="240"></th>
             <th>{{ img['isFloorPlan'] ? 'Yes' : 'No' }}</th>
         </tr>
     {% endfor %}
-    <a href="{{ url('images', {'page': 1}) }}">| <<<< First page -- |</a>
+    <a href="{{ url('images', {'page': 1}) }}"> << First page </a><br>
     {% if (false != next_page) %}
-        <a href="{{ url('images', {'page': next_page}) }}">| Next Page -> |</a>
+        <a href="{{ url('images', {'page': next_page}) }}">Next Page ></a><br>
     {% endif %}
     {% if (false != previous_page) %}
-        <a href="{{ url('images', {'page': previous_page}) }}">| <- Previous page |</a>
+        <a href="{{ url('images', {'page': previous_page}) }}">< Previous page</a><br>
     {% endif %}
-    <a href="{{ url('images', {'page': last_page}) }}">| Last page >>>> | </a>
-
-    <a href="{{ url('classify') }}"> TRY IT OUT! </a>
+    <a href="{{ url('images', {'page': last_page}) }}"> Last page >> </a><br>
+    <a href="{{ url('classify') }}"> CLASSIFY IT! </a>
 </table>
 </html>
