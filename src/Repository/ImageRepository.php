@@ -9,9 +9,9 @@ use Symfony\Component\HttpFoundation\{Request, RequestStack};
 
 class ImageRepository extends ServiceEntityRepository
 {
-    const START_PAGE = 1;
-    const MAX_PER_PAGE = 30;
-    const PER_PAGE = 10;
+    public const START_PAGE = 1;
+    public const MAX_PER_PAGE = 30;
+    public const PER_PAGE = 10;
 
     /** @var Request */
     private $request;
@@ -30,7 +30,7 @@ class ImageRepository extends ServiceEntityRepository
         parent::__construct($registry, Image::class);
     }
 
-    public function getPaginatedList($page, $perPage )
+    public function getPaginatedList($page, $perPage)
     {
         $page = (null == $page || $page < 0) ? self::START_PAGE : $page;
         $maxPerPage = self::MAX_PER_PAGE;

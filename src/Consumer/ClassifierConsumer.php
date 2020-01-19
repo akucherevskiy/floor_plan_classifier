@@ -17,7 +17,7 @@ use Symfony\Contracts\HttpClient\Exception\{ClientExceptionInterface as ClientEx
 
 class ClassifierConsumer implements ConsumerInterface
 {
-    const BASE_EXT = '.jpg';
+    public const BASE_EXT = '.jpg';
 
     /** @var EntityManagerInterface */
     private $em;

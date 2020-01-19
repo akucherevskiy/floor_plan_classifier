@@ -5,14 +5,14 @@ namespace App\Services;
 class FileLoader
 {
     /** @var string */
-    const FILE_PATH = "data/images.csv";
+    public const FILE_PATH = "data/images.csv";
 
     /**
      * @param $chunkSize
      * @param $callback
      * @return bool
      */
-    static function fileGetContentsChunked($chunkSize, $callback)
+    public static function fileGetContentsChunked($chunkSize, $callback)
     {
         try {
             $handle = fopen(self::FILE_PATH, "r");

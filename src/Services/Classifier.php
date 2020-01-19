@@ -16,7 +16,7 @@ class Classifier
      * @return array
      * @throws ClientException|RedirectionException|ServerException|TransportException
      */
-    static function classify($image): array
+    public static function classify($image): array
     {
         try {
             $response = (new CurlHttpClient())->request(

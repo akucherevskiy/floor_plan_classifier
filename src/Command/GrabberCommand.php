@@ -12,7 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class GrabberCommand extends Command
 {
-    const CHUNK_SIZE = 50000;
+    public const CHUNK_SIZE = 50000;
 
     /** @var string */
     protected static $defaultName = 'app:grab-images';
