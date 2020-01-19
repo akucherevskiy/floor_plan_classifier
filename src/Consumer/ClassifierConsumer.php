@@ -51,7 +51,8 @@ class ClassifierConsumer implements ConsumerInterface
             if (!$classifierResult['success']) {
                 return;
             }
-            if ($isPlan = $classifierResult['data']['is_plan']) {
+            $isPlan = $classifierResult['data']['is_plan'];
+            if ($isPlan) {
                 $image = $this->em->getRepository(Image::class)->findOneBy(['lunId' => $lunId]);
                 $image->setIsFloorPlan($isPlan);
             }

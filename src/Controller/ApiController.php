@@ -61,7 +61,8 @@ class ApiController extends AbstractController
      */
     public function classifyAction(Request $request)
     {
-        if ($image = $request->files->get('image')) {
+        $image = $request->files->get('image');
+        if ($image) {
             $classifierResult = Classifier::classify(file_get_contents($image));
             if (!$classifierResult['success']) {
                 return $this->json($classifierResult['data']['error'], Response::HTTP_BAD_REQUEST);

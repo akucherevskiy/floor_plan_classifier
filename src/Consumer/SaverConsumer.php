@@ -38,7 +38,8 @@ class SaverConsumer implements ConsumerInterface
         $ids = [];
         foreach ($body as $data) {
             $dataArr = explode(',', $data);
-            if (count($dataArr) > 1 && ($lunId = (int)$dataArr[0]) > 0) {
+            $lunId = $lunId = (int)$dataArr[0];
+            if (count($dataArr) > 1 && $lunId > 0) {
                 $this->em->persist((new Image())->setLunId($lunId));
                 $ids[] = $lunId;
                 if (count($ids) == 5) {
